@@ -14,16 +14,33 @@ import com.wts.domain.UserRolesRepository;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{
-	private final UserRepository userRepository;
-	private final UserRolesRepository userRolesRepository;
-	
+	private UserRepository userRepository;
+
+	private UserRolesRepository userRolesRepository;
+
 	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	@Autowired
+	public void setUserRolesRepository(UserRolesRepository userRolesRepository) {
+		this.userRolesRepository = userRolesRepository;
+	}
+
     public CustomUserDetailsService(UserRepository userRepository,UserRolesRepository userRolesRepository) {
         this.userRepository = userRepository;
         this.userRolesRepository=userRolesRepository;
     }
-	
-        
+
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
+	public UserRolesRepository getUserRolesRepository() {
+		return userRolesRepository;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user=userRepository.findByUserName(username);
