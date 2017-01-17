@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/app.css"rel="stylesheet"
+<link href="/styles/app.css"rel="stylesheet"
 	type="text/css"></link>
 <title>Spring Security Example - ProgrammingFree</title>
 </head>

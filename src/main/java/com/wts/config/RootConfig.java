@@ -31,7 +31,6 @@ public class RootConfig {
         emfb.setDataSource(dataSource());
         emfb.setJpaVendorAdapter(jpaVendorAdapter());
         emfb.setPackagesToScan("com.wts.domain");
-        System.out.println("你好，这里是Spring MVC项目");
         return emfb;
     }
 
@@ -42,7 +41,6 @@ public class RootConfig {
         ds.setUrl("jdbc:mysql://localhost:3306/database1");
         ds.setUsername("root");
         ds.setPassword("1234");
-        System.out.println("你好");
         return ds;
     }
 
