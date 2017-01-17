@@ -2,10 +2,7 @@ package com.wts.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -22,59 +19,41 @@ import java.util.Properties;
  */
 
 @Configuration
+@Import(WebSecurityConfig.class)
 @EnableJpaRepositories(basePackages = "com.wts.domain")
 @ComponentScan(basePackages = {"com.wts"},
     excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 public class RootConfig {
 
-    private WebSecurityConfig webSecurityConfig;
-
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
-        emfb.setDataSource(dataSource);
-        emfb.setJpaVendorAdapter(jpaVendorAdapter);
+        emfb.setDataSource(dataSource());
+        emfb.setJpaVendorAdapter(jpaVendorAdapter());
         emfb.setPackagesToScan("com.wts.domain");
+        System.out.println("你好，这里是Spring MVC项目");
         return emfb;
     }
 
-//    @Bean
-//    public JpaVendorAdapter jpaVendorAdapter() {
-//        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-//        adapter.setDatabase(Database.HSQL);
-//        adapter.setShowSql(true);
-//        adapter.setGenerateDdl(false);
-//        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-//        return adapter;
-//    }
-//
-//    @Bean
-//    public DataSource dataSource() {
-//        BasicDataSource ds = new BasicDataSource();
-//        ds.setDriverClassName("com.mysql.jdbc.Driver");
-//        ds.setUrl("jdbc:mysql://localhost:3306/database1");
-//        ds.setUsername("root");
-//        ds.setPassword("1234");
-//        return ds;
-//    }
-
-//    @Bean
-//    public LocalSessionFactoryBean sessijonFactory(DataSource dataSource) {
-//        LocalSessionFactoryBean sfb = new LocalSessionFactoryBean();
-//        sfb.setDataSource(dataSource);
-//        sfb.setPackagesToScan(new String[]{"com.wts.domain"});
-//        Properties properties = new Properties();
-//        properties.setProperty("dialect", "org.hibernate.dialect.MySQL5Dialect");
-//        sfb.setHibernateProperties(properties);
-//        return sfb;
-//    }
-
-    public WebSecurityConfig getWebSecurityConfig() {
-        return webSecurityConfig;
+    @Bean
+    public DataSource dataSource() {
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/database1");
+        ds.setUsername("root");
+        ds.setPassword("1234");
+        System.out.println("你好");
+        return ds;
     }
 
-    @Autowired
-    public void setWebSecurityConfig(WebSecurityConfig webSecurityConfig) {
-        this.webSecurityConfig = webSecurityConfig;
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.MYSQL);
+        adapter.setShowSql(true);
+        adapter.setGenerateDdl(false);
+        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
+        return adapter;
     }
+
 }
