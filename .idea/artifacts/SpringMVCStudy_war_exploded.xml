@@ -45,6 +45,8 @@
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.3.11.Final" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.40" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.2.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.2.1.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
