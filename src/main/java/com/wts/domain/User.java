@@ -17,7 +17,7 @@ public class User implements Serializable {
     private Long userId;
 
 	@Column(name = "username")
-    private String userName;   
+    private String username;
 
 	@Column(name = "password")
     private String password;
@@ -37,7 +37,7 @@ public class User implements Serializable {
 	
 	public User(User user) {
 	        this.userId = user.userId;
-	        this.userName = user.userName;
+	        this.username = user.username;
 	        this.email = user.email;       
 	        this.password = user.password;
 	        this.enabled = user.enabled;
@@ -76,12 +76,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPasswordConfirm() {

@@ -45,11 +45,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user=userRepository.findByUserName(username);
+		User user=userRepository.findByUsername(username);
 		if(null == user){
 			throw new UsernameNotFoundException("No user present with username: "+username);
 		}else{
-			List<String> userRoles=userRolesRepository.findRoleByUserName(username);
+			List<String> userRoles=userRolesRepository.findRoleByUsername(username);
 			return new CustomUserDetails(user,userRoles);
 		}
 	}

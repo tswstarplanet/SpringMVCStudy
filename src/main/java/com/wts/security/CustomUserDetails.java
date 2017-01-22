@@ -50,7 +50,7 @@ public class CustomUserDetails extends com.wts.domain.User implements UserDetail
 
 	@Override
 	public String getUsername() {
-		return super.getUserName();
+		return super.getUsername();
 	}
 
 
