@@ -56,18 +56,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/hello").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/").access("hasRole('ROLE_USER')")
+                .antMatchers("/welcome").access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")
-                .usernameParameter("username").passwordParameter("password")
+                .usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/welcome").failureUrl("/login?error")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout")
+                .logout().logoutSuccessUrl("/login?logout")
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .csrf();
+
+//        http.authorizeRequests()
+//                .antMatchers("/hello").access("hasRole('ROLE_ADMIN')")
+//                .anyRequest().permitAll()
+//                .and()
+//                .formLogin().loginPage("/login")
+//                .usernameParameter("username").passwordParameter("password")
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/login?logout")
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/403")
+//                .and()
+//                .csrf();
     }
 
     @Bean(name = "passwordEncoder")
