@@ -4,10 +4,12 @@ import com.wts.domain.User;
 import com.wts.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by wtswindows7 on 2017/1/20.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

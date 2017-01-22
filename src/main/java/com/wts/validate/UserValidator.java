@@ -3,6 +3,7 @@ package com.wts.validate;
 import com.wts.domain.User;
 import com.wts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -10,6 +11,8 @@ import org.springframework.validation.Validator;
 /**
  * Created by wtswindows7 on 2017/1/22.
  */
+
+@Component
 public class UserValidator implements Validator {
 
     @Autowired

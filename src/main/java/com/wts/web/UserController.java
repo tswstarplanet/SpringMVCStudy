@@ -5,6 +5,7 @@ import com.wts.service.SecurityService;
 import com.wts.service.UserService;
 import com.wts.validate.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by wtswindows7 on 2017/1/22.
  */
+@Controller
 public class UserController {
 
     @Autowired
@@ -44,6 +46,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+        System.out.println("这里是登录方法");
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
