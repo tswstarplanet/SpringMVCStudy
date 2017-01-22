@@ -37,11 +37,10 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        String regexEmail = "^\\\\s*\\\\w+(?:\\\\.{0,1}[\\\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\\\.[a-zA-Z]+\\\\s*$";
-        boolean boo = Pattern.matches(regexEmail, user.getEmail());
-//        if (!boo) {
-//            errors.rejectValue("email", "Regex.userForm.email");
-//        }
+        String regexEmail = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+        if (!Pattern.matches(regexEmail, user.getEmail())) {
+            errors.rejectValue("email", "Regex.userForm.email");
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 5 || user.getPassword().length() > 32) {

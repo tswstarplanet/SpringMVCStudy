@@ -14,6 +14,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void save(UserRole userRole) {
-
+        userRolesRepository.save(userRole);
     }
 }

@@ -44,7 +44,7 @@ public class RootConfig {
     public DataSource dataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/database1");
+        ds.setUrl("jdbc:mysql://localhost:3306/database1?useUnicode=true&characterEncoding=UTF-8");
         ds.setUsername("root");
         ds.setPassword("1234");
         return ds;

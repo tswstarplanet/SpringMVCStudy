@@ -39,7 +39,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userService.save(userForm);
+        userService.register(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
         return "redirect:/welcome";
     }

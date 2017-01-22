@@ -2,9 +2,12 @@ package com.wts.service;
 
 import com.wts.domain.User;
 import com.wts.domain.UserRepository;
+import com.wts.domain.UserRole;
+import com.wts.domain.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by wtswindows7 on 2017/1/20.
@@ -18,10 +21,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    UserRolesRepository userRolesRepository;
+
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void register(User user) {
+        long id = save(user).getUserid();
+        UserRole userRole = new UserRole();
+        userRole.setUserid(id);
+        userRole.setRole("ROLE_USER");
+        userRolesRepository.save(userRole);
     }
 
     @Override
