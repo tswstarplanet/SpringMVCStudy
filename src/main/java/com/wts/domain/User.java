@@ -20,7 +20,10 @@ public class User implements Serializable {
     private String userName;   
 
 	@Column(name = "password")
-    private String password;   
+    private String password;
+
+	@Transient
+	private String passwordConfirm;
 
 	@Column(name = "email")
     private String email;
@@ -37,7 +40,8 @@ public class User implements Serializable {
 	        this.userName = user.userName;
 	        this.email = user.email;       
 	        this.password = user.password;
-	        this.enabled=user.enabled;        
+	        this.enabled = user.enabled;
+	        this.passwordConfirm = user.passwordConfirm;
 	}
 	
 	public int getEnabled() {
@@ -79,7 +83,12 @@ public class User implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
-  
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 }

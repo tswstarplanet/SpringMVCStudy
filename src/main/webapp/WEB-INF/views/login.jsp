@@ -1,47 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		 pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link href="<c:url value="/styles/app.css" />" rel="stylesheet"
-	type="text/css">
-<title>Spring Security Example</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Log in with your account</title>
+
+	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
-<body class="security-app">
-	<div class="details">
-		<h2>Spring Security - JDBC Authentication</h2>
-		<a href="http://www.programming-free.com/2016/01/spring-security-spring-data-jpa.html" class="button green small">Tutorial</a> 
-		<a href="https://github.com/priyadb/SpringSecurityJdbcApp/archive/master.zip"
-			class="button red small">Download</a>
-	</div>
 
-	<form action="/login" method="post">
+<body>
 
-		<div class="lc-block">
-			<div>
-				<input type="text" class="style-4" name="username"
-					placeholder="User Name" />
-			</div>
-			<div>
-				<input type="password" class="style-4" name="password"
-					placeholder="Password" />
-			</div>
-			<div>
-				<input type="submit" value="Sign In" class="button red small" />
-			</div>
-			<c:if test="${param.error ne null}">
-				<div class="alert-danger">Invalid username and password.</div>
-			</c:if>
-			<c:if test="${param.logout ne null}">
-				<div class="alert-normal">You have been logged out.</div>
-			</c:if>
+<div class="container">
+
+	<form method="POST" action="${contextPath}/login" class="form-signin">
+		<h2 class="form-heading">Log in</h2>
+
+		<div class="form-group ${error != null ? 'has-error' : ''}">
+			<span>${message}</span>
+			<input name="username" type="text" class="form-control" placeholder="Username"
+				   autofocus="true"/>
+			<input name="password" type="password" class="form-control" placeholder="Password"/>
+			<span>${error}</span>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+			<h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
 		</div>
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+
 	</form>
 
+</div>
+<!-- /container -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

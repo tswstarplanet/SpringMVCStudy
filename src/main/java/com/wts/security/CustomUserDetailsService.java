@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.wts.domain.User;
 import com.wts.domain.UserRepository;
 import com.wts.domain.UserRolesRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{
@@ -42,6 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user=userRepository.findByUserName(username);
 		if(null == user){
