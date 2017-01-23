@@ -35,7 +35,7 @@
 <div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
+        <h2 class="form-signin-heading">创建用户</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"
@@ -73,6 +73,6 @@
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="<c:url value="/scripts/bootstrap.min.js" />"></script>
 </body>
 </html>

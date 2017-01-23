@@ -70,6 +70,7 @@ public class RootConfig {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setDefaultEncoding("UTF-8");
         source.setBasename("validation");
         return source;
     }

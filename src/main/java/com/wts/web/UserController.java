@@ -46,7 +46,6 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
-        System.out.println("这里是登录方法");
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
