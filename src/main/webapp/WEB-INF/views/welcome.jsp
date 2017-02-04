@@ -35,7 +35,12 @@
         </form>
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+        <%--<a href="<c:url value="/spittles/publish" /> ">Spittles</a>--%>
 
+        <form id="spittleForm" method="post" action="/spittles/publish">
+            <input type="text" class="form-control" placeholder="请输入内容">
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
     </c:if>
 
 </div>
