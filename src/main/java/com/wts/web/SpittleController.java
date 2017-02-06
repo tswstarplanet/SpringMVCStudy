@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/spittles")
 public class SpittleController {
 
-    @RequestMapping(value = "/publish", method = RequestMethod.GET)
+    @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public String publishSpittle(Spittle spittle) {
         System.out.println("hello");
-        return "403";
+        return "999";
     }
 
 }
