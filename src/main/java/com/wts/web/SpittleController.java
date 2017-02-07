@@ -16,7 +16,7 @@ public class SpittleController {
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public String publishSpittle(Spittle spittle) {
         System.out.println("hello");
-        return "999";
+        return "403";
     }
 
 }
