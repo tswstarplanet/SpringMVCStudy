@@ -17,8 +17,8 @@ public class Spittle {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "spittle", referencedColumnName = "userid")
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, optional = false)
+    @JoinColumn(name = "users_userid")
     private Long userid;
 
     @Column(name = "content")
