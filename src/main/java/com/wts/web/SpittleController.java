@@ -28,7 +28,7 @@ public class SpittleController {
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public String publishSpittle(@ModelAttribute Spittle spittle, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        spittle.setUserid(user.getUserid());
+        spittle.setUser(user);
         spittleService.publishSpittle(spittle);
         return "welcome";
     }

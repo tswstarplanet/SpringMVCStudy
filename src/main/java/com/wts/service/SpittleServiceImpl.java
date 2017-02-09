@@ -3,10 +3,13 @@ package com.wts.service;
 import com.wts.domain.Spittle;
 import com.wts.repository.SpittleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by wtswindows7 on 2017/2/6.
  */
+
+@Service
 public class SpittleServiceImpl implements SpittleService {
 
     @Autowired

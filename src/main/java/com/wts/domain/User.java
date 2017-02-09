@@ -33,8 +33,8 @@ public class User implements Serializable {
 	@Column(name ="enabled")
 	private int enabled;
 
-	@OneToMany(mappedBy = "userid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Spittle> spittles = new HashSet();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Spittle> spittles;
 
 	public Long getUserId() {
 		return userId;

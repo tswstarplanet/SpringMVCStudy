@@ -17,9 +17,9 @@ public class Spittle {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, optional = false)
-    @JoinColumn(name = "users_userid")
-    private Long userid;
+    @ManyToOne
+    @JoinColumn(name = "userid")
+    private User user;
 
     @Column(name = "content")
     private String content;
@@ -40,11 +40,11 @@ public class Spittle {
         this.id = id;
     }
 
-    public Long getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

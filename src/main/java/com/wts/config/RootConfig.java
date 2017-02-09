@@ -25,7 +25,7 @@ import java.util.Properties;
 
 @Configuration
 @Import({WebSecurityConfig.class, SpringSessionConfig.class})
-@EnableJpaRepositories(basePackages = "com.wts.domain")
+@EnableJpaRepositories(basePackages = {"com.wts.domain", "com.wts.repository"})
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.wts"},
     excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
