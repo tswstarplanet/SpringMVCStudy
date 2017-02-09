@@ -18,7 +18,7 @@ public class Spittle {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
     private User user;
 
     @Column(name = "content")
