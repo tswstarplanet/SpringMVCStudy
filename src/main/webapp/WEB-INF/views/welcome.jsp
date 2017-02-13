@@ -14,7 +14,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <c:url var="home" value="/" scope="request" />
     <title>Welcome</title>
 
     <link href="<c:url value="/styles/bootstrap.min.css" />" rel="stylesheet"
@@ -41,11 +41,70 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-primary">提交</button>
         </form>
+        <c:if test="${not empty mySpittleList}">
+            <ul>
+                <c:forEach var="mySpittle" items="${mySpittleList}">
+                    <li>${mySpittle.content}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
     </c:if>
 
 </div>
 <!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resource/js/jquery-3.1.1.min.js"></script>
 <script src="${contextPath}/resource/js/bootstrap.min.js"></script>
+
+<%--<script>--%>
+    <%--$('#spittleForm').submit(function (e) {--%>
+        <%--var form = $('#spittleForm');--%>
+        <%--e.preventDefault();--%>
+        <%--var data = {};--%>
+
+        <%--$.each(this, function (i, v) {--%>
+            <%--var input = $(v);--%>
+            <%--data[input.attr("name")] = input.val();--%>
+            <%--delete data["undefined"];--%>
+        <%--});--%>
+        <%--$.ajax({--%>
+            <%--type : "POST",--%>
+            <%--contentType : "application/json; charset=utf-8",--%>
+            <%--url : "${home}/publish",--%>
+            <%--data : JSON.stringify(data),--%>
+            <%--dataType : "json",--%>
+            <%--timeout : 5000,--%>
+            <%--success : function (data) {--%>
+                <%--console.log("SUCCESS: ", e);--%>
+            <%--},--%>
+            <%--error : function (e) {--%>
+                <%--console.log("ERROR: ", e);--%>
+            <%--}--%>
+            <%--done : function (e) {--%>
+                <%--console.log("DONE");--%>
+            <%--}--%>
+        <%--});--%>
+    <%--})--%>
+
+    <%--function displayMySpittles() {--%>
+        <%--var data = {};--%>
+        <%--$.ajax({--%>
+            <%--type : "POST",--%>
+            <%--contentType : "application/json",--%>
+            <%--url : "${home}/publish",--%>
+            <%--data : JSON.stringify(data),--%>
+            <%--dataType : "json",--%>
+            <%--timeout : 5000,--%>
+            <%--success : function (data) {--%>
+                <%--console.log("SUCCESS: ", e);--%>
+            <%--},--%>
+            <%--error : function (e) {--%>
+                <%--console.log("ERROR: ", e);--%>
+            <%--}--%>
+            <%--done : function (e) {--%>
+                <%--console.log("DONE");--%>
+            <%--}--%>
+        <%--});--%>
+    <%--}--%>
+<%-- </script> --%>
 </body>
 </html>

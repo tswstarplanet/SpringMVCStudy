@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by wtswindows7 on 2017/2/4.
@@ -30,7 +33,16 @@ public class SpittleController {
         User user = userService.findByUsername(authentication.getName());
         spittle.setUser(user);
         spittleService.publishSpittle(spittle);
-        return "welcome";
+        return "/spittles/mySpittles";
+    }
+
+    @RequestMapping(value = "/mySpittles", method = RequestMethod.GET)
+    public ModelAndView getMySpittles(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        List<Spittle> spittleList = spittleService.readMySpittles(user);
+        ModelAndView modelAndView = new ModelAndView("welcome");
+        modelAndView.addObject("mySpittleList", spittleList);
+        return modelAndView;
     }
 
     public UserService getUserService() {

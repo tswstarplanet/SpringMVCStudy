@@ -47,4 +47,9 @@ public class Spittle {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return content;
+    }
 }

@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")
-                .usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/welcome").failureUrl("/login?error")
+                .usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/spittles/mySpittles").failureUrl("/login?error")
                 .and()
                 .logout().logoutSuccessUrl("/login?logout")
                 .and()
