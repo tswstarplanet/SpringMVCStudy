@@ -33,7 +33,7 @@ public class SpittleController {
         User user = userService.findByUsername(authentication.getName());
         spittle.setUser(user);
         spittleService.publishSpittle(spittle);
-        return "/spittles/mySpittles";
+        return "redirect:/spittles/mySpittles";
     }
 
     @RequestMapping(value = "/mySpittles", method = RequestMethod.GET)
