@@ -48,6 +48,11 @@
                 </c:forEach>
             </ul>
         </c:if>
+        <form id="makeFriendForm" method="post" action="/friend/makeFriend">
+            <input type="text" name="username" class="form-control" placeholder="请输入对方用户名">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
     </c:if>
 
 </div>

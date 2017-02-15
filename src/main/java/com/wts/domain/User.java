@@ -36,6 +36,15 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Spittle> spittles;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "friend",
+		joinColumns = {@JoinColumn(name = "userid")},
+		inverseJoinColumns = {@JoinColumn(name = "friendid")})
+	private Set<User> friends;
+
+	@ManyToMany(mappedBy = "friends")
+	private Set<User> companions;
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -111,5 +120,13 @@ public class User implements Serializable {
 
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
+	}
+
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
 	}
 }
