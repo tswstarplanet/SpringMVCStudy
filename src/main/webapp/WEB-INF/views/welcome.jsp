@@ -17,7 +17,7 @@
     <c:url var="home" value="/" scope="request" />
     <title>Welcome</title>
 
-    <link href="<c:url value="/styles/bootstrap.min.css" />" rel="stylesheet"
+    <link href="<c:url value='/styles/bootstrap.min.css' />" rel="stylesheet"
           type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -48,17 +48,51 @@
                 </c:forEach>
             </ul>
         </c:if>
-        <form id="makeFriendForm" method="post" action="/friend/makeFriend">
-            <input type="text" name="username" class="form-control" placeholder="请输入对方用户名">
+        <form id="makeFriendForm">
+            <input type="text" id="makeFriendUsername" name="username" class="form-control" placeholder="请输入对方用户名">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onclick="makeFriend()">提交</button>
         </form>
     </c:if>
 
 </div>
 <!-- /container -->
-<script src="${contextPath}/resource/js/jquery-3.1.1.min.js"></script>
-<script src="${contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="<c:url value='/scripts/jquery-3.1.1.min.js' />"></script>
+<script src="<c:url value='/scripts/bootstrap.min.js' />"></script>
+
+<script>
+    $(document).ready(function () {
+        alert(123);
+       $("#makeFriendForm").submit(function (event) {
+          event.preventDefault();
+          makeFriend();
+       });
+    });
+
+    function makeFriend() {
+        alert(1)
+        var makeFriendModel = {};
+        makeFriendModel["username"] = "333";
+        makeFriendModel["username"] = $("#makeFriendUsername").val();
+        alert(2);
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/friend/makeFriend",
+            data: JSON.stringify(makeFriendModel),
+            dataType: "json",
+            success: function (data) {
+                console.log("success: ", data);
+            },
+            error: function (e) {
+                console.log("error: ", e);
+            },
+            done: function (e) {
+                console.log("DONE");
+            }
+        });
+    }
+</script>
 
 <%--<script>--%>
     <%--$('#spittleForm').submit(function (e) {--%>
