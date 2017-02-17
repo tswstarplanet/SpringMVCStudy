@@ -17,7 +17,7 @@
     <c:url var="home" value="/" scope="request" />
     <title>Welcome</title>
 
-    <link href="<c:url value='/styles/bootstrap.min.css' />" rel="stylesheet"
+    <link href="<c:url value='/resource/css/bootstrap.min.css' />" rel="stylesheet"
           type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -57,12 +57,12 @@
 
 </div>
 <!-- /container -->
-<script src="<c:url value='/scripts/jquery-3.1.1.min.js' />"></script>
-<script src="<c:url value='/scripts/bootstrap.min.js' />"></script>
+<script type="application/javascript" src="<c:url value = '/resource/js/jquery-3.1.1.min.js' />"></script>
+<script type="application/javascript" src="<c:url value = '/resource/js/bootstrap.min.js' />"></script>
 
-<script>
+<script type="application/javascript">
     $(document).ready(function () {
-        alert(123);
+       alert(123);
        $("#makeFriendForm").submit(function (event) {
           event.preventDefault();
           makeFriend();
