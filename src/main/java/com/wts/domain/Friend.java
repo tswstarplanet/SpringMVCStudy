@@ -39,7 +39,7 @@ public class Friend {
         this.id = id;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     public User getUser() {
         return user;
@@ -49,7 +49,7 @@ public class Friend {
         this.user = user;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "friendid", referencedColumnName = "userid")
     public User getFriend() {
         return friend;
