@@ -5,13 +5,18 @@ package com.wts.model;
  */
 public class MakeFriendResponse {
 
-    private boolean isExist;
+    /**
+     * 1 不存在
+     * 2 发送申请成功
+     * 3 发送申请失败
+     */
+    private int flag;
 
-    public boolean isExist() {
-        return isExist;
+    public int getFlag() {
+        return flag;
     }
 
-    public void setExist(boolean exist) {
-        isExist = exist;
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }

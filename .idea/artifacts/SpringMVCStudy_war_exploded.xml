@@ -62,6 +62,9 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.6.RELEASE" />
           <element id="library" level="project" name="Maven: io.netty:netty-all:4.1.6.Final" />
           <element id="library" level="project" name="Maven: io.reactivex:rxjava:1.2.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.6" />
         </element>
       </element>
       <element id="directory" name="META-INF">

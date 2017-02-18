@@ -36,6 +36,11 @@ public class SpittleController {
         return "redirect:/spittles/mySpittles";
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public void test() {
+        System.out.println("test");
+    }
+
     @RequestMapping(value = "/mySpittles", method = RequestMethod.GET)
     public ModelAndView getMySpittles(Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());

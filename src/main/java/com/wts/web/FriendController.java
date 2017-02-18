@@ -5,6 +5,7 @@ import com.wts.model.MakeFriendModel;
 import com.wts.model.MakeFriendResponse;
 import com.wts.service.FriendService;
 import com.wts.service.UserService;
+import com.wts.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -31,19 +32,27 @@ public class FriendController {
         this.friendService = friendService;
     }
 
-    @RequestMapping(value = "/makeFriend", method = RequestMethod.POST)
+    @RequestMapping(value = "test", method = RequestMethod.POST)
+    public void test() {
+        System.out.println("hello");
+    }
+
+    @RequestMapping(value = "/makeFriend",
+            method = RequestMethod.POST,
+            consumes = "application/json",
+            produces = "application/json")
     public @ResponseBody
     MakeFriendResponse makeFriend(@RequestBody MakeFriendModel makeFriendModel, Authentication authentication) {
         MakeFriendResponse makeFriendResponse = new MakeFriendResponse();
         User friend = userService.findByUsername(makeFriendModel.getUsername());
         if (friend == null) {
-            makeFriendResponse.setExist(false);
+            makeFriendResponse.setFlag(Constants.MAKE_FRIEND_APPLY_NOT_EXIST);
         } else {
             User user = userService.findByUsername(authentication.getName());
-            if (friendService.makeFriendApply(user, friend) == false) {
-                makeFriendResponse.setExist(false);
+            if (friendService.makeFriendApply(user, friend) == null) {
+                makeFriendResponse.setFlag(Constants.MAKE_FRIEND_APPLY_SEND_FAIL);
             } else {
-                makeFriendResponse.setExist(true);
+                makeFriendResponse.setFlag(Constants.MAKE_FRIEND_APPLY_SEND_SUCCESS);
             }
         }
         return makeFriendResponse;

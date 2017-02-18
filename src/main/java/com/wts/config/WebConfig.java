@@ -4,9 +4,13 @@ import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.util.List;
 
 /**
  * Created by wtswindows7 on 2017/1/13.
@@ -25,7 +29,19 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return resolver;
     }
 
-//    @Override
+    @Bean
+    MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        return converter;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(mappingJackson2HttpMessageConverter());
+        super.configureMessageConverters(converters);
+    }
+
+    //    @Override
 //    public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/home").setViewName("home");
 //        registry.addViewController("/").setViewName("home");

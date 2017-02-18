@@ -51,8 +51,9 @@
         <form id="makeFriendForm">
             <input type="text" id="makeFriendUsername" name="username" class="form-control" placeholder="请输入对方用户名">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-primary" onclick="makeFriend()">提交</button>
+            <button id="makeFriendApply" type="submit" class="btn btn-primary">提交</button>
         </form>
+
     </c:if>
 
 </div>
@@ -61,25 +62,33 @@
 <script type="application/javascript" src="<c:url value = '/resource/js/bootstrap.min.js' />"></script>
 
 <script type="application/javascript">
-    $(document).ready(function () {
-       alert(123);
-       $("#makeFriendForm").submit(function (event) {
-          event.preventDefault();
-          makeFriend();
-       });
-    });
 
-    function makeFriend() {
-        alert(1)
-        var makeFriendModel = {};
-        makeFriendModel["username"] = "333";
-        makeFriendModel["username"] = $("#makeFriendUsername").val();
-        alert(2);
+    (function ($) {
+        $.fn.serializeFormJSON = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        }
+    })(jQuery);
+
+    $('#makeFriendForm').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serializeFormJSON();
         $.ajax({
             type: "POST",
             contentType: "application/json",
             url: "/friend/makeFriend",
-            data: JSON.stringify(makeFriendModel),
+            data: JSON.stringify(data),
             dataType: "json",
             success: function (data) {
                 console.log("success: ", data);
@@ -91,7 +100,56 @@
                 console.log("DONE");
             }
         });
-    }
+    });
+
+//    $("#makeFriendApply").click(function () {
+//        makeFriend();
+//    });
+//
+//    $("#makeFriendApply2").click(function () {
+//        makeFriend2();
+//    });
+//
+//    function makeFriend2() {
+//        var makeFriendModel = {};
+//        $.ajax({
+//            type: "POST",
+//            contentType: "application/json",
+//            url: "/friend/test",
+//            data: makeFriendModel,
+//            dataType: "json",
+//            success: function (data) {
+//                console.log("success: ", data);
+//            },
+//            error: function (e) {
+//                console.log("error: ", e);
+//            },
+//            done: function (e) {
+//                console.log("DONE");
+//            }
+//        });
+//    }
+//
+//    function makeFriend() {
+//        var makeFriendModel = $("#makeFriendForm").serializeArray();
+//        console.log("data: ", makeFriendModel);
+//        $.ajax({
+//            type: "POST",
+//            contentType: "application/json",
+//            url: "/friend/makeFriend",
+//            data: makeFriendModel,
+//            dataType: "json",
+//            success: function (data) {
+//                console.log("success: ", data);
+//            },
+//            error: function (e) {
+//                console.log("error: ", e);
+//            },
+//            done: function (e) {
+//                console.log("DONE");
+//            }
+//        });
+//    }
 </script>
 
 <%--<script>--%>
