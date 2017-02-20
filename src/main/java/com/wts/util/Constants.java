@@ -20,4 +20,9 @@ public interface Constants {
      */
     public static final int MAKE_FRIEND_APPLY_SEND_FAIL = 3;
 
+    /**
+     * 好友状态，申请中
+     */
+    public static final int FRIEND_RELATIONSHIP_APPLY = 0;
+
 }

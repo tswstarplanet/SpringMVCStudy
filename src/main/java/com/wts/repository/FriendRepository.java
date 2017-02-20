@@ -1,6 +1,7 @@
 package com.wts.repository;
 
 import com.wts.domain.Friend;
+import com.wts.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     Friend save(Friend friend);
 
-    @Query("select userid, friendid, actionid from friend where (userid = ?1 or friendid = ?1) and status = 0 and actionid != ?1")
-    List<Friend> findMyApplies(long id);
+    List<Friend> findFriendByFriendAndStatus(User friend, int status);
 
 }

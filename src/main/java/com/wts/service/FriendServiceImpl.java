@@ -3,6 +3,7 @@ package com.wts.service;
 import com.wts.domain.Friend;
 import com.wts.domain.User;
 import com.wts.repository.FriendRepository;
+import com.wts.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +25,14 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Friend makeFriendApply(User user, User friend) {
-        User user1 = user.getUserId() < friend.getUserId() ? user : friend;
-        User friend1 = user.getUserId() > friend.getUserId() ? user : friend;
         int status = 0;
         long actionId = user.getUserId();
-        Friend friendEntity = new Friend(user1, friend1, status, actionId);
+        Friend friendEntity = new Friend(user, friend, status, actionId);
         return friendRepository.save(friendEntity);
     }
 
     @Override
-    public List<Friend> findMyApplies(Long id) {
-        return friendRepository.findMyApplies(id);
+    public List<Friend> findMyApplies(User user) {
+        return friendRepository.findFriendByFriendAndStatus(user, Constants.FRIEND_RELATIONSHIP_APPLY);
     }
 }

@@ -24,6 +24,8 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="application/javascript" src="<c:url value = '/resource/js/vue.js' />"></script>
+
     <![endif]-->
 </head>
 <body>
@@ -53,7 +55,9 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button id="makeFriendApply" type="submit" class="btn btn-primary">提交</button>
         </form>
-
+        <div id="app">
+            {{ message }}
+        </div>
     </c:if>
 
 </div>
@@ -61,7 +65,36 @@
 <script type="application/javascript" src="<c:url value = '/resource/js/jquery-3.1.1.min.js' />"></script>
 <script type="application/javascript" src="<c:url value = '/resource/js/bootstrap.min.js' />"></script>
 
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
+</script>
+
 <script type="application/javascript">
+
+    $(document).ready(function () {
+
+       $.ajax({
+           type: "GET",
+           contentType: "application/json",
+           url: "/friend/getMyFriends",
+           data: null,
+           dataType: "json",
+           success: function (data) {
+               console.log("success: ", data);
+           },
+           error: function (e) {
+               console.log("error: ", e);
+           },
+           done: function (e) {
+               console.log("done");
+           }
+       });
+    });
 
     (function ($) {
         $.fn.serializeFormJSON = function () {

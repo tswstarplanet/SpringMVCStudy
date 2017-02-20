@@ -11,5 +11,5 @@ import java.util.List;
 public interface FriendService {
     Friend makeFriendApply(User user, User friend);
 
-    List<Friend> findMyApplies(Long id);
+    List<Friend> findMyApplies(User user);
 }

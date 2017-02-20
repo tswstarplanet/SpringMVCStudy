@@ -68,16 +68,12 @@ public class FriendController {
     public @ResponseBody
     List<ApplyFriendModel> getMyFriendApplies(Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        List<Friend> friends = friendService.findMyApplies(user.getUserId());
+        List<Friend> friends = friendService.findMyApplies(user);
         List<ApplyFriendModel> applyFriendModels = new ArrayList<>();
         for (Friend friend : friends) {
             ApplyFriendModel applyFriendModel = new ApplyFriendModel();
-            applyFriendModel.setId(friend.getActionId());
-            if (friend.getActionId() == friend.getUser().getUserId()) {
-                applyFriendModel.setUsername(friend.getUser().getUsername());
-            } else if (friend.getActionId() == friend.getFriend().getUserId()) {
-                applyFriendModel.setUsername(friend.getFriend().getUsername());
-            }
+            applyFriendModel.setId(friend.getUser().getUserId());
+            applyFriendModel.setUsername(friend.getUser().getUsername());
             applyFriendModels.add(applyFriendModel);
         }
         return applyFriendModels;
