@@ -33,13 +33,13 @@ public class User implements Serializable {
 	@Column(name ="enabled")
 	private int enabled;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Spittle> spittles;
 
-	@OneToMany(targetEntity = Friend.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Friend.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Friend> friends;
 
-	@OneToMany(targetEntity = Friend.class, mappedBy = "friend", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Friend.class, mappedBy = "friend", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Friend> companies;
 
 	public Long getUserId() {
@@ -77,14 +77,6 @@ public class User implements Serializable {
 
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
-	}	
-
-	public Long getUserid() {
-		return userId;
-	}
-
-	public void setUserid(Long userid) {
-		this.userId = userid;
 	}
 	
 	public String getPassword() {

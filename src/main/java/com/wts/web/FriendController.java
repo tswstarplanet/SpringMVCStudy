@@ -1,6 +1,8 @@
 package com.wts.web;
 
+import com.wts.domain.Friend;
 import com.wts.domain.User;
+import com.wts.model.ApplyFriendModel;
 import com.wts.model.MakeFriendModel;
 import com.wts.model.MakeFriendResponse;
 import com.wts.service.FriendService;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by weitaosheng on 2017/2/15.
@@ -57,4 +63,24 @@ public class FriendController {
         }
         return makeFriendResponse;
     }
+
+    @RequestMapping(value = "getMyFriends", method = RequestMethod.GET)
+    public @ResponseBody
+    List<ApplyFriendModel> getMyFriendApplies(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        List<Friend> friends = friendService.findMyApplies(user.getUserId());
+        List<ApplyFriendModel> applyFriendModels = new ArrayList<>();
+        for (Friend friend : friends) {
+            ApplyFriendModel applyFriendModel = new ApplyFriendModel();
+            applyFriendModel.setId(friend.getActionId());
+            if (friend.getActionId() == friend.getUser().getUserId()) {
+                applyFriendModel.setUsername(friend.getUser().getUsername());
+            } else if (friend.getActionId() == friend.getFriend().getUserId()) {
+                applyFriendModel.setUsername(friend.getFriend().getUsername());
+            }
+            applyFriendModels.add(applyFriendModel);
+        }
+        return applyFriendModels;
+    }
+
 }
