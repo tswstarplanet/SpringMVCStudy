@@ -17,7 +17,7 @@
     <c:url var="home" value="/" scope="request" />
     <title>Welcome</title>
 
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="<c:url value = '/resource/js/vue.js' />"></script>
 
     <link href="<c:url value='/resource/css/bootstrap.min.css' />" rel="stylesheet"
           type="text/css">
@@ -44,6 +44,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-primary">提交</button>
         </form>
+        <p>我的消息</p>
         <c:if test="${not empty mySpittleList}">
             <ul>
                 <c:forEach var="mySpittle" items="${mySpittleList}">
@@ -56,8 +57,13 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button id="makeFriendApply" type="submit" class="btn btn-primary">提交</button>
         </form>
-        <div id="app">
-            {{ message }}
+        <div>
+            <p>我的好友</p>
+            <ul id="myFriendList">
+                <li v-for="friend in friendList">
+                    {{ friend.username }}, {{ friend.id }}
+                </li>
+            </ul>
         </div>
     </c:if>
 
@@ -67,12 +73,7 @@
 <script type="application/javascript" src="<c:url value = '/resource/js/bootstrap.min.js' />"></script>
 
 <script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            message: 'Hello Vue!'
-        }
-    })
+
 </script>
 
 <script type="application/javascript">
@@ -86,6 +87,12 @@
            data: null,
            dataType: "json",
            success: function (data) {
+               var friendUl = new Vue({
+                   el: '#myFriendList',
+                   data: {
+                       friendList: data
+                   }
+               });
                console.log("success: ", data);
            },
            error: function (e) {
@@ -125,7 +132,7 @@
             data: JSON.stringify(data),
             dataType: "json",
             success: function (data) {
-                console.log("success: ", data);
+                alert("success: " + JSON.stringify(data));
             },
             error: function (e) {
                 console.log("error: ", e);
@@ -136,106 +143,7 @@
         });
     });
 
-//    $("#makeFriendApply").click(function () {
-//        makeFriend();
-//    });
-//
-//    $("#makeFriendApply2").click(function () {
-//        makeFriend2();
-//    });
-//
-//    function makeFriend2() {
-//        var makeFriendModel = {};
-//        $.ajax({
-//            type: "POST",
-//            contentType: "application/json",
-//            url: "/friend/test",
-//            data: makeFriendModel,
-//            dataType: "json",
-//            success: function (data) {
-//                console.log("success: ", data);
-//            },
-//            error: function (e) {
-//                console.log("error: ", e);
-//            },
-//            done: function (e) {
-//                console.log("DONE");
-//            }
-//        });
-//    }
-//
-//    function makeFriend() {
-//        var makeFriendModel = $("#makeFriendForm").serializeArray();
-//        console.log("data: ", makeFriendModel);
-//        $.ajax({
-//            type: "POST",
-//            contentType: "application/json",
-//            url: "/friend/makeFriend",
-//            data: makeFriendModel,
-//            dataType: "json",
-//            success: function (data) {
-//                console.log("success: ", data);
-//            },
-//            error: function (e) {
-//                console.log("error: ", e);
-//            },
-//            done: function (e) {
-//                console.log("DONE");
-//            }
-//        });
-//    }
 </script>
 
-<%--<script>--%>
-    <%--$('#spittleForm').submit(function (e) {--%>
-        <%--var form = $('#spittleForm');--%>
-        <%--e.preventDefault();--%>
-        <%--var data = {};--%>
-
-        <%--$.each(this, function (i, v) {--%>
-            <%--var input = $(v);--%>
-            <%--data[input.attr("name")] = input.val();--%>
-            <%--delete data["undefined"];--%>
-        <%--});--%>
-        <%--$.ajax({--%>
-            <%--type : "POST",--%>
-            <%--contentType : "application/json; charset=utf-8",--%>
-            <%--url : "${home}/publish",--%>
-            <%--data : JSON.stringify(data),--%>
-            <%--dataType : "json",--%>
-            <%--timeout : 5000,--%>
-            <%--success : function (data) {--%>
-                <%--console.log("SUCCESS: ", e);--%>
-            <%--},--%>
-            <%--error : function (e) {--%>
-                <%--console.log("ERROR: ", e);--%>
-            <%--}--%>
-            <%--done : function (e) {--%>
-                <%--console.log("DONE");--%>
-            <%--}--%>
-        <%--});--%>
-    <%--})--%>
-
-    <%--function displayMySpittles() {--%>
-        <%--var data = {};--%>
-        <%--$.ajax({--%>
-            <%--type : "POST",--%>
-            <%--contentType : "application/json",--%>
-            <%--url : "${home}/publish",--%>
-            <%--data : JSON.stringify(data),--%>
-            <%--dataType : "json",--%>
-            <%--timeout : 5000,--%>
-            <%--success : function (data) {--%>
-                <%--console.log("SUCCESS: ", e);--%>
-            <%--},--%>
-            <%--error : function (e) {--%>
-                <%--console.log("ERROR: ", e);--%>
-            <%--}--%>
-            <%--done : function (e) {--%>
-                <%--console.log("DONE");--%>
-            <%--}--%>
-        <%--});--%>
-    <%--}--%>
-<%-- </script> --%>
 </body>
 </html>
