@@ -25,4 +25,9 @@ public interface Constants {
      */
     public static final int FRIEND_RELATIONSHIP_APPLY = 0;
 
+    /**
+     * 好友状态，已批准
+     */
+    int FRIEND_RELATIONSHIP_APPROVED = 4;
+
 }

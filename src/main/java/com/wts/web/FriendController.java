@@ -2,19 +2,15 @@ package com.wts.web;
 
 import com.wts.domain.Friend;
 import com.wts.domain.User;
-import com.wts.model.ApplyFriendModel;
-import com.wts.model.MakeFriendModel;
-import com.wts.model.MakeFriendResponse;
+import com.wts.model.*;
 import com.wts.service.FriendService;
 import com.wts.service.UserService;
 import com.wts.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +71,19 @@ public class FriendController {
             applyFriendModels.add(applyFriendModel);
         }
         return applyFriendModels;
+    }
+
+    @RequestMapping(value = "approveFriendApply/{userid}", method = RequestMethod.POST)
+    public @ResponseBody
+    ApproveFriendResponse approveFriendApply(
+            @PathVariable("userid") long userid, Authentication authentication) {
+        User user = userService.findByUserid(userid);
+        User friend1 = userService.findByUsername(authentication.getName());
+        Friend friend = new Friend(user, friend1, Constants.FRIEND_RELATIONSHIP_APPROVED, user.getUserId());
+        Friend friend2 = friendService.updateFriend(friend);
+        ApproveFriendResponse approveFriendResponse = new ApproveFriendResponse();
+        approveFriendResponse.setStatus(friend2.getStatus());
+        return approveFriendResponse;
     }
 
 }

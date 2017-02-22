@@ -35,4 +35,9 @@ public class FriendServiceImpl implements FriendService {
     public List<Friend> findMyApplies(User user) {
         return friendRepository.findFriendByFriendAndStatus(user, Constants.FRIEND_RELATIONSHIP_APPLY);
     }
+
+    @Override
+    public Friend updateFriend(Friend friend) {
+        return friendRepository.save(friend);
+    }
 }

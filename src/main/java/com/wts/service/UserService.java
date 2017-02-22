@@ -12,4 +12,6 @@ public interface UserService {
     public User findByUsername(String username);
 
     public void register(User user);
+
+    User findByUserid(long userid);
 }
