@@ -16,7 +16,7 @@ public class User implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)    
     @Column(name="userid")
-    private Long userId;
+    private Long userid;
 
 	@Column(name = "username")
     private String username;
@@ -42,12 +42,12 @@ public class User implements Serializable {
 	@OneToMany(targetEntity = Friend.class, mappedBy = "friend", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Friend> companies;
 
-	public Long getUserId() {
-		return userId;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public Set<Spittle> getSpittles() {
@@ -63,7 +63,7 @@ public class User implements Serializable {
 	}
 	
 	public User(User user) {
-	        this.userId = user.userId;
+	        this.userid = user.userid;
 	        this.username = user.username;
 	        this.email = user.email;       
 	        this.password = user.password;

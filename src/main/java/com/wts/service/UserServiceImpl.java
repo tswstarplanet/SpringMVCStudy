@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(User user) {
-        long id = save(user).getUserId();
+        long id = save(user).getUserid();
         UserRole userRole = new UserRole();
         userRole.setUserid(id);
         userRole.setRole("ROLE_USER");

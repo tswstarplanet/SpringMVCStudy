@@ -59,9 +59,11 @@
         </form>
         <div>
             <p>我的好友</p>
-            <ul id="myFriendList">
-                <li v-for="friend in friendList">
-                    {{ friend.username }}, {{ friend.id }}
+            <ul id="myFriendApplyList">
+                <li is="friendApplyList-apply"
+                    v-for="friendApply in friendApplyList"
+                    v-bind:apply="friendApply"
+                    >
                 </li>
             </ul>
         </div>
@@ -78,6 +80,30 @@
 
 <script type="application/javascript">
 
+    var friendUl = new Vue({
+        el: '#myFriendApplyList',
+        data: {
+            friendApplyList: null
+        },
+        methods: {
+            approveFriendApply: function (userid) {
+                alert(userid);
+            }
+        }
+    })
+
+    Vue.component('friendApplyList-apply', {
+        template: '\
+                <li>\
+                    {{ apply.id }}, {{apply.username}}\
+                    <button v-on:click="approveFriendApply(2)">批准</button>\
+                </li>\
+            ',
+        props: ['apply']
+    })
+
+
+
     $(document).ready(function () {
 
        $.ajax({
@@ -87,12 +113,7 @@
            data: null,
            dataType: "json",
            success: function (data) {
-               var friendUl = new Vue({
-                   el: '#myFriendList',
-                   data: {
-                       friendList: data
-                   }
-               });
+               friendUl.friendApplyList = data;
                console.log("success: ", data);
            },
            error: function (e) {

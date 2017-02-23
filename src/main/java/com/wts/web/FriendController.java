@@ -66,7 +66,7 @@ public class FriendController {
         List<ApplyFriendModel> applyFriendModels = new ArrayList<>();
         for (Friend friend : friends) {
             ApplyFriendModel applyFriendModel = new ApplyFriendModel();
-            applyFriendModel.setId(friend.getUser().getUserId());
+            applyFriendModel.setId(friend.getUser().getUserid());
             applyFriendModel.setUsername(friend.getUser().getUsername());
             applyFriendModels.add(applyFriendModel);
         }
@@ -79,7 +79,7 @@ public class FriendController {
             @PathVariable("userid") long userid, Authentication authentication) {
         User user = userService.findByUserid(userid);
         User friend1 = userService.findByUsername(authentication.getName());
-        Friend friend = new Friend(user, friend1, Constants.FRIEND_RELATIONSHIP_APPROVED, user.getUserId());
+        Friend friend = new Friend(user, friend1, Constants.FRIEND_RELATIONSHIP_APPROVED, user.getUserid());
         Friend friend2 = friendService.updateFriend(friend);
         ApproveFriendResponse approveFriendResponse = new ApproveFriendResponse();
         approveFriendResponse.setStatus(friend2.getStatus());

@@ -26,7 +26,7 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public Friend makeFriendApply(User user, User friend) {
         int status = 0;
-        long actionId = user.getUserId();
+        long actionId = user.getUserid();
         Friend friendEntity = new Friend(user, friend, status, actionId);
         return friendRepository.save(friendEntity);
     }
