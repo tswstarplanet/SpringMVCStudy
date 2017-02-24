@@ -79,8 +79,9 @@ public class FriendController {
             @PathVariable("userid") long userid, Authentication authentication) {
         User user = userService.findByUserid(userid);
         User friend1 = userService.findByUsername(authentication.getName());
-        Friend friend = new Friend(user, friend1, Constants.FRIEND_RELATIONSHIP_APPROVED, user.getUserid());
-        Friend friend2 = friendService.updateFriend(friend);
+        Friend friendship = friendService.findFriendByUserAndFriend(user, friend1);
+        friendship.setStatus(Constants.FRIEND_RELATIONSHIP_APPROVED);
+        Friend friend2 = friendService.updateFriend(friendship);
         ApproveFriendResponse approveFriendResponse = new ApproveFriendResponse();
         approveFriendResponse.setStatus(friend2.getStatus());
         return approveFriendResponse;

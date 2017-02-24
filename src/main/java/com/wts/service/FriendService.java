@@ -14,4 +14,6 @@ public interface FriendService {
     List<Friend> findMyApplies(User user);
 
     Friend updateFriend(Friend friend);
+
+    Friend findFriendByUserAndFriend(User user, User friend);
 }

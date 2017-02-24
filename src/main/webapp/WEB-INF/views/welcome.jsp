@@ -58,7 +58,7 @@
             <button id="makeFriendApply" type="submit" class="btn btn-primary">提交</button>
         </form>
         <div>
-            <p>我的好友</p>
+            <p>我的好友申请</p>
             <ul id="myFriendApplyList">
                 <li is="friendApplyList-apply"
                     v-for="friendApply in friendApplyList"
@@ -84,11 +84,6 @@
         el: '#myFriendApplyList',
         data: {
             friendApplyList: null
-        },
-        methods: {
-            approveFriendApply: function (userid) {
-                alert(userid);
-            }
         }
     })
 
@@ -96,9 +91,30 @@
         template: '\
                 <li>\
                     {{ apply.id }}, {{apply.username}}\
-                    <button v-on:click="approveFriendApply(2)">批准</button>\
+                    <button v-on:click="approveFriendApply(apply.id)">批准</button>\
                 </li>\
             ',
+        methods: {
+            approveFriendApply: function (id) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "/friend/approveFriendApply/" + id,
+                    data: null,
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data.status);
+                        console.log("success: ", data);
+                    },
+                    error: function (e) {
+                        console.log("error: ", e);
+                    },
+                    done: function (e) {
+                        console.log("done");
+                    }
+                });
+            }
+        },
         props: ['apply']
     })
 
