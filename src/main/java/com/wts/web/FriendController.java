@@ -58,7 +58,7 @@ public class FriendController {
         return makeFriendResponse;
     }
 
-    @RequestMapping(value = "getMyFriends", method = RequestMethod.GET)
+    @RequestMapping(value = "getMyFriendApply", method = RequestMethod.GET)
     public @ResponseBody
     List<ApplyFriendModel> getMyFriendApplies(Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());

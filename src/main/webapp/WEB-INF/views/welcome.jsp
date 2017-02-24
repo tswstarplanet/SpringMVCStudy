@@ -125,7 +125,7 @@
        $.ajax({
            type: "GET",
            contentType: "application/json",
-           url: "/friend/getMyFriends",
+           url: "/friend/getMyFriendApply",
            data: null,
            dataType: "json",
            success: function (data) {
