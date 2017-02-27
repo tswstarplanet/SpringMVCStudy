@@ -30,4 +30,9 @@ public interface Constants {
      */
     int FRIEND_RELATIONSHIP_APPROVED = 4;
 
+
+    int USER_OFF_LINE = 0;
+
+    int USER_ON_LINE = 1;
+
 }

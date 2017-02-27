@@ -64,9 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(encodingFilter, CsrfFilter.class);
 
         http.formLogin().loginPage("/login")
-                .usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/spittles/mySpittles").failureUrl("/login?error")
-                .and()
-                .logout().logoutSuccessUrl("/login?logout")
+                .usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/logon").failureUrl("/login?error")
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
@@ -76,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/welcome").access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()
-                .csrf().disable();
+                .csrf();
 
 //        http.authorizeRequests()
 //                .antMatchers("/").access("hasRole('ROLE_USER')")

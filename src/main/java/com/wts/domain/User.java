@@ -29,9 +29,9 @@ public class User implements Serializable {
 
 	@Column(name = "email")
     private String email;
-    
-	@Column(name ="enabled")
-	private int enabled;
+
+	@Column(name = "online_status")
+	private int onlineStatus;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Spittle> spittles;
@@ -67,18 +67,17 @@ public class User implements Serializable {
 	        this.username = user.username;
 	        this.email = user.email;       
 	        this.password = user.password;
-	        this.enabled = user.enabled;
 	        this.passwordConfirm = user.passwordConfirm;
 	}
-	
-	public int getEnabled() {
-		return enabled;
+
+	public int getOnlineStatus() {
+		return onlineStatus;
 	}
 
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
+	public void setOnlineStatus(int onlineStatus) {
+		this.onlineStatus = onlineStatus;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}

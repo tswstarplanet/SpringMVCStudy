@@ -18,9 +18,9 @@
 
     <title>Create an account</title>
 
-    <link href="<c:url value="/styles/bootstrap.min.css" />" rel="stylesheet"
+    <link href="<c:url value="/resource/css/bootstrap.min.css" />" rel="stylesheet"
           type="text/css">
-    <link href="<c:url value="/styles/common.css" />" rel="stylesheet"
+    <link href="<c:url value="/resource/css/common.css" />" rel="stylesheet"
           type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -73,6 +73,6 @@
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="<c:url value="/scripts/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resource/js/bootstrap.min.js" />"></script>
 </body>
 </html>

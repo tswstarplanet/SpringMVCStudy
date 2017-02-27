@@ -14,4 +14,6 @@ public interface UserService {
     public void register(User user);
 
     User findByUserid(long userid);
+
+    User updateOnlineStatus(User user);
 }
