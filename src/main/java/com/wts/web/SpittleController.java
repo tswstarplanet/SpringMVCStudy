@@ -2,6 +2,7 @@ package com.wts.web;
 
 import com.wts.domain.Spittle;
 import com.wts.domain.User;
+import com.wts.service.SpittleNoticeService;
 import com.wts.service.SpittleService;
 import com.wts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,18 @@ import java.util.Set;
 @RequestMapping("/spittles")
 public class SpittleController {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private SpittleService spittleService;
+
+    private SpittleNoticeService spittleNoticeService;
+
+    @Autowired
+    public SpittleController(UserService userService, SpittleService spittleService, SpittleNoticeService spittleNoticeService) {
+        this.userService = userService;
+        this.spittleService = spittleService;
+        this.spittleNoticeService = spittleNoticeService;
+    }
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public String publishSpittle(@ModelAttribute Spittle spittle, Authentication authentication) {
@@ -39,6 +47,7 @@ public class SpittleController {
 //        }
         spittle.setUser(user);
         spittleService.publishSpittle(spittle);
+        spittleNoticeService.noticeFriend(user, spittle);
         return "redirect:/spittles/mySpittles";
     }
 

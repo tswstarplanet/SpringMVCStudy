@@ -11,4 +11,5 @@ import java.util.List;
 public interface SpittleService {
     void publishSpittle(Spittle spittle);
     List<Spittle> readMySpittles(User user);
+
 }

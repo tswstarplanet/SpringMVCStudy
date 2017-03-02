@@ -160,6 +160,7 @@
     })(jQuery);
 
     $('#makeFriendForm').submit(function (e) {
+        alert(1);
         e.preventDefault();
         var data = $(this).serializeFormJSON();
         $.ajax({
