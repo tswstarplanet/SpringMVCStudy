@@ -2,6 +2,7 @@ package com.wts.web;
 
 import com.wts.domain.Spittle;
 import com.wts.domain.User;
+import com.wts.model.SpittleModel;
 import com.wts.service.SpittleNoticeService;
 import com.wts.service.SpittleService;
 import com.wts.service.UserService;
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -63,6 +66,22 @@ public class SpittleController {
         ModelAndView modelAndView = new ModelAndView("welcome");
         modelAndView.addObject("mySpittleList", spittleList);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/getFriendSpittles", method = RequestMethod.GET)
+    public @ResponseBody
+    List<SpittleModel> getFriendSpittles(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        List<Spittle> spittles = spittleService.findFriendSpittles(user);
+        List<SpittleModel> spittleModels = new ArrayList<>(spittles.size());
+        for (int i = 0; i < spittles.size(); i++) {
+            SpittleModel spittleModel = new SpittleModel();
+            spittleModel.setId(spittles.get(i).getId());
+            spittleModel.setUserid(spittles.get(i).getUser().getUserid());
+            spittleModel.setContent(spittles.get(i).getContent());
+            spittleModels.add(spittleModel);
+        }
+        return spittleModels;
     }
 
     public UserService getUserService() {

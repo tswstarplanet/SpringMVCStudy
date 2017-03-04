@@ -122,7 +122,7 @@
 
     $(document).ready(function () {
 
-       $.ajax({
+        $.ajax({
            type: "GET",
            contentType: "application/json",
            url: "/friend/getMyFriendApply",
@@ -138,7 +138,24 @@
            done: function (e) {
                console.log("done");
            }
-       });
+        });
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/spittles/getFriendSpittles",
+            data: null,
+            dataType: "json",
+            success: function (data) {
+                console.log("success: ", data);
+            },
+            error: function (e) {
+                console.log("error: ", e);
+            },
+            done: function (e) {
+                console.log("done");
+            }
+        });
     });
 
     (function ($) {

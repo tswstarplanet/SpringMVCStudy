@@ -46,5 +46,8 @@ public class SpittleServiceImpl implements SpittleService {
         spittleRepository.save(spittle);
     }
 
-
+    @Override
+    public List<Spittle> findFriendSpittles(User user) {
+        return spittleRepository.findFriendSpittles(user);
+    }
 }
