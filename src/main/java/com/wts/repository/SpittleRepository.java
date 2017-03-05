@@ -2,6 +2,8 @@ package com.wts.repository;
 
 import com.wts.domain.Spittle;
 import com.wts.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,4 +24,7 @@ public interface SpittleRepository extends JpaRepository<Spittle, Long>{
 //    @Query("select s from Spittle s where s.user in ((select f.user from Friend f where f.friend = ?1 and f.status = 4) or (select f.friend from Friend f where f.user = :user and f.status = 4))")
     @Query("select s from Spittle s where (s.user in (select f.user from Friend f where f.friend = ?1 and f.status = 4)) or (s.user in (select f.friend from Friend f where f.user = ?1 and f.status = 4))")
     List<Spittle> findFriendSpittles(User user);
+
+    @Query("select s from Spittle s where (s.user in (select f.user from Friend f where f.friend = ?1 and f.status = 4)) or (s.user in (select f.friend from Friend f where f.user = ?1 and f.status = 4))")
+    Page<Spittle> readFriendSpittles(User user, Pageable pageable);
 }

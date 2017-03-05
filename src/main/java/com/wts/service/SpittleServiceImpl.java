@@ -8,6 +8,9 @@ import com.wts.repository.SpittleNoticeRepository;
 import com.wts.repository.SpittleRepository;
 import com.wts.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,5 +52,12 @@ public class SpittleServiceImpl implements SpittleService {
     @Override
     public List<Spittle> findFriendSpittles(User user) {
         return spittleRepository.findFriendSpittles(user);
+    }
+
+    @Override
+    public Page<Spittle> getFriendSpittles(User user, Integer pageNumber) {
+        PageRequest request =
+                new PageRequest(pageNumber - 1, 2, Sort.Direction.DESC, "id");
+        return spittleRepository.readFriendSpittles(user, request);
     }
 }
