@@ -24,7 +24,7 @@ import java.util.Properties;
  */
 
 @Configuration
-@Import({WebSecurityConfig.class, SpringSessionConfig.class})
+@Import({WebSecurityConfig.class, SpringSessionConfig.class, WebSocketStompConfig.class})
 @EnableJpaRepositories(basePackages = {"com.wts.domain", "com.wts.repository"})
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.wts"},

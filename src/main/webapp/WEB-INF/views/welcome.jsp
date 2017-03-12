@@ -84,12 +84,16 @@
             <input type="button" id="next_button" onclick="getFriendSpittleByPage(1)" value="下一页" />
         </div>
 
+        <input type="button" id="sockjs_button" onclick="testSockJS()" value="sockjs" />
+
     </c:if>
 
 </div>
 <!-- /container -->
 <script type="application/javascript" src="<c:url value = '/resource/js/jquery-3.1.1.min.js' />"></script>
 <script type="application/javascript" src="<c:url value = '/resource/js/bootstrap.min.js' />"></script>
+<script type="application/javascript" src="<c:url value = '/resource/js/sockjs.min.js' />"></script>
+<script type="application/javascript" src="<c:url value = '/resource/js/stomp.js' />"></script>
 
 <script>
 
@@ -254,6 +258,26 @@
             }
         });
     });
+
+    function testSockJS() {
+
+        var url = "<c:url value='/hello'/>";
+
+        var socket = new SockJS(url);
+
+        var stomp = Stomp.over(socket);
+
+        <%--var url = "<c:url value='/chat'/>";--%>
+        <%--var sock = new SockJS(url);--%>
+
+        <%--var stomp = Stomp.over(sock);--%>
+
+        var payLoad = JSON.stringify({ 'message' : 'Marco!' });
+
+        stomp.connect('guest', 'guest', function (frame) {
+            stomp.send('/app/chat', {}, payLoad);
+        });
+    }
 
 </script>
 
