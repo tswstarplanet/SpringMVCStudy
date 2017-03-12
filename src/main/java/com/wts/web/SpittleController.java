@@ -2,6 +2,7 @@ package com.wts.web;
 
 import com.wts.domain.Spittle;
 import com.wts.domain.User;
+import com.wts.model.SpittleListModel;
 import com.wts.model.SpittleModel;
 import com.wts.service.SpittleNoticeService;
 import com.wts.service.SpittleService;
@@ -10,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by wtswindows7 on 2017/2/4.
@@ -83,37 +82,41 @@ public class SpittleController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/getFriendSpittles", method = RequestMethod.GET)
-    public @ResponseBody
-    List<SpittleModel> getFriendSpittles(Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
-        List<Spittle> spittles = spittleService.findFriendSpittles(user);
-        List<SpittleModel> spittleModels = new ArrayList<>(spittles.size());
-        for (int i = 0; i < spittles.size(); i++) {
-            SpittleModel spittleModel = new SpittleModel();
-            spittleModel.setId(spittles.get(i).getId());
-            spittleModel.setUserid(spittles.get(i).getUser().getUserid());
-            spittleModel.setContent(spittles.get(i).getContent());
-            spittleModels.add(spittleModel);
-        }
-        return spittleModels;
-    }
+//    @RequestMapping(value = "/getFriendSpittles", method = RequestMethod.GET)
+//    public @ResponseBody
+//    List<SpittleListModel> getFriendSpittles(Authentication authentication) {
+//        User user = userService.findByUsername(authentication.getName());
+//        List<Spittle> spittles = spittleService.findFriendSpittles(user);
+//        List<SpittleListModel> spittleModels = new ArrayList<>(spittles.size());
+//        for (int i = 0; i < spittles.size(); i++) {
+//            SpittleListModel spittleModel = new SpittleListModel();
+//            spittleModel.setId(spittles.get(i).getId());
+//            spittleModel.setUserid(spittles.get(i).getUser().getUserid());
+//            spittleModel.setContent(spittles.get(i).getContent());
+//            spittleModels.add(spittleModel);
+//        }
+//        return spittleModels;
+//    }
 
     @RequestMapping(value = "/readFriendSpittles/{pageNumber}", method = RequestMethod.GET)
     public @ResponseBody
-    List<SpittleModel> readFriendSpittles(@PathVariable("pageNumber") Integer pageNumber, Authentication authentication) {
+    SpittleListModel readFriendSpittles(@PathVariable("pageNumber") Integer pageNumber, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Page<Spittle> spittlePage = spittleService.getFriendSpittles(user, pageNumber);
         List<Spittle> spittles = spittlePage.getContent();
         List<SpittleModel> spittleModels = new ArrayList<>(spittles.size());
         for (int i = 0; i < spittlePage.getContent().size(); i++) {
+            SpittleListModel spittleListModel = new SpittleListModel();
             SpittleModel spittleModel = new SpittleModel();
             spittleModel.setId(spittles.get(i).getId());
             spittleModel.setUserid(spittles.get(i).getUser().getUserid());
             spittleModel.setContent(spittles.get(i).getContent());
             spittleModels.add(spittleModel);
         }
-        return spittleModels;
+        SpittleListModel spittleListModel = new SpittleListModel();
+        spittleListModel.setCount(spittlePage.getTotalPages());
+        spittleListModel.setSpittleModels(spittleModels);
+        return spittleListModel;
     }
 
 }

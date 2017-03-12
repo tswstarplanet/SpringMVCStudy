@@ -72,17 +72,18 @@
 
         <div>
             <p>我的朋友圈</p>
-            <%--<ul id="myFriendSpittleList">--%>
-                <%--<li is="friendSpittleList-vue"--%>
-                    <%--v-for="friendSpittle in friendSpittleList"--%>
-                    <%--v-bind:spittle="friendSpittle"--%>
-                <%-->--%>
-                <%--</li>--%>
-            <%--</ul>--%>
+            <ul id="myFriendSpittleList">
+                <li is="friendSpittleList-vue"
+                    v-for="friendSpittle in friendSpittleList"
+                    v-bind:spittle="friendSpittle"
+                >
+                </li>
+            </ul>
             <input type="text" hidden="hidden" id="pageNumber_input" value="0" />
             <input type="button" id="previous_button" onclick="getFriendSpittleByPage(0)" value="上一页" />
             <input type="button" id="next_button" onclick="getFriendSpittleByPage(1)" value="下一页" />
         </div>
+
     </c:if>
 
 </div>
@@ -95,57 +96,6 @@
 </script>
 
 <script type="application/javascript">
-
-//    var friendSpittles = new Vue({
-//        el: 'myFriendSpittleList',
-//        data: {
-//            friendSpittleList: null
-//        }
-//    })
-//
-//    Vue.component('friendSpittleList-vue', {
-//        template: '\
-//                <li>\
-//                    {{ spittle.userid }}: {{ spittle.content }}\
-//                </li>\
-//        ',
-//        props: ['spittle']
-//    })
-
-    function getFriendSpittleByPage(flag) {
-        var pageNumber = -1;
-        if (flag == 0) {
-            pageNumber = new Number($('#pageNumber_input').val()) - 1;
-        } else {
-            pageNumber = new Number($('#pageNumber_input').val()) + 1;
-        }
-        if (pageNumber < 1) {
-            return;
-        }
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/spittles/readFriendSpittles/" + pageNumber,
-            data: null,
-            dataType: "json",
-            success: function (data) {
-                if (flag == 0) {
-                    var pageNumber2 = new Number($('#pageNumber_input').val()) - 1;
-                    $('#pageNumber_input').val(pageNumber2);
-                } else {
-                    var pageNumber2 = new Number($('#pageNumber_input').val()) + 1;
-                    $('#pageNumber_input').val(pageNumber2);
-                }
-                console.log("success: ", data);
-            },
-            error: function (e) {
-                console.log("error: ", e);
-            },
-            done: function (e) {
-                console.log("done");
-            }
-        })
-    }
 
     var friendUl = new Vue({
         el: '#myFriendApplyList',
@@ -185,6 +135,61 @@
         props: ['apply']
     })
 
+    var friendSpittles = new Vue({
+        el: '#myFriendSpittleList',
+        data: {
+            friendSpittleList: null
+        }
+    })
+
+    Vue.component('friendSpittleList-vue', {
+        template: '\
+                <li>\
+                    {{ spittle.userid }}: {{ spittle.content }}\
+                </li>\
+        ',
+        props: ['spittle']
+    })
+
+    function getFriendSpittleByPage(flag) {
+        var pageNumber = -1;
+        if (flag == 0) {
+            pageNumber = new Number($('#pageNumber_input').val()) - 1;
+        } else {
+            pageNumber = new Number($('#pageNumber_input').val()) + 1;
+        }
+        if (pageNumber < 1) {
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/spittles/readFriendSpittles/" + pageNumber,
+            data: null,
+            dataType: "json",
+            success: function (data) {
+                if (pageNumber > data.count) {
+                    return;
+                }
+                friendSpittles.friendSpittleList = data.spittleModels;
+                if (flag == 0) {
+                    var pageNumber2 = new Number($('#pageNumber_input').val()) - 1;
+                    $('#pageNumber_input').val(pageNumber2);
+                } else {
+                    var pageNumber2 = new Number($('#pageNumber_input').val()) + 1;
+                    $('#pageNumber_input').val(pageNumber2);
+                }
+                console.log("success: ", data);
+            },
+            error: function (e) {
+                console.log("error: ", e);
+            },
+            done: function (e) {
+                console.log("done");
+            }
+        })
+    }
+
 
 
     $(document).ready(function () {
@@ -207,22 +212,8 @@
            }
         });
 
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/spittles/getFriendSpittles",
-            data: null,
-            dataType: "json",
-            success: function (data) {
-                console.log("success: ", data);
-            },
-            error: function (e) {
-                console.log("error: ", e);
-            },
-            done: function (e) {
-                console.log("done");
-            }
-        });
+        getFriendSpittleByPage(1);
+
     });
 
     (function ($) {
@@ -244,7 +235,6 @@
     })(jQuery);
 
     $('#makeFriendForm').submit(function (e) {
-        alert(1);
         e.preventDefault();
         var data = $(this).serializeFormJSON();
         $.ajax({

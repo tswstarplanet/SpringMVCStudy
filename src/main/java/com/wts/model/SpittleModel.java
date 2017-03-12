@@ -1,7 +1,7 @@
 package com.wts.model;
 
 /**
- * Created by weitaosheng on 2017/3/4.
+ * Created by weitaosheng on 2017/3/12.
  */
 public class SpittleModel {
     private Long id;
