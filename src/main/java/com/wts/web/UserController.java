@@ -4,10 +4,12 @@ import com.wts.domain.Spittle;
 import com.wts.domain.User;
 import com.wts.service.SecurityService;
 import com.wts.service.SpittleService;
+import com.wts.service.UserRoleService;
 import com.wts.service.UserService;
 import com.wts.util.Constants;
 import com.wts.validate.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -28,6 +30,9 @@ import java.util.List;
  */
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Autowired
     private UserService userService;

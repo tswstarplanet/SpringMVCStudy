@@ -29,6 +29,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.wts"},
     excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
+//@PropertySource("classpath:")
 public class RootConfig {
 
     @Bean

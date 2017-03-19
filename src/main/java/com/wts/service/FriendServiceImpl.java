@@ -18,8 +18,8 @@ public class FriendServiceImpl implements FriendService {
 
     private FriendRepository friendRepository;
 
-    @Autowired
-    public FriendServiceImpl(FriendRepository friendRepository) {
+
+    public FriendServiceImpl(@Autowired FriendRepository friendRepository) {
         this.friendRepository = friendRepository;
     }
 
